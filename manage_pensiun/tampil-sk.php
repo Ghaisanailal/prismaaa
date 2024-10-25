@@ -1,4 +1,10 @@
 <?php
+
+$ids = $_SESSION['id'];
+$jumlah_record1 = mysqli_query($db, "SELECT user.id, pegawai.* FROM user JOIN pegawai ON pegawai.nis = user.nis where id = $ids") or die('Ada kesalahan pada query jumlah_record: ' . mysqli_error($db));
+$data = mysqli_fetch_assoc($jumlah_record1);
+$niss = $data['nis'];
+
 if (isset($_POST['cari'])) {
     $cari = $_POST['cari'];
 } else {
@@ -39,21 +45,21 @@ if (isset($_POST['cari'])) {
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
             </button>
-            <strong><i class='glyphicon glyphicon-ok-circle'></i> Sukses!</strong> Data seminar berhasil disimpan.
+            <strong><i class='glyphicon glyphicon-ok-circle'></i> Sukses!</strong> Data Nilai berhasil disimpan.
           </div>";
         } elseif ($_GET['alert'] == 3) {
             echo "<div class='alert alert-success alert-dismissible' role='alert'>
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
             </button>
-            <strong><i class='glyphicon glyphicon-ok-circle'></i> Sukses!</strong> Data seminar berhasil diubah.
+            <strong><i class='glyphicon glyphicon-ok-circle'></i> Sukses!</strong> Data Nilai berhasil diubah.
           </div>";
         } elseif ($_GET['alert'] == 4) {
             echo "<div class='alert alert-success alert-dismissible' role='alert'>
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
             </button>
-            <strong><i class='glyphicon glyphicon-ok-circle'></i> Sukses!</strong> Data seminar berhasil dihapus.
+            <strong><i class='glyphicon glyphicon-ok-circle'></i> Sukses!</strong> Data Nilai berhasil dihapus.
           </div>";
         } elseif ($_GET['alert'] == 5) {
             echo "<div class='alert alert-danger alert-dismissible' role='alert'>
@@ -67,7 +73,7 @@ if (isset($_POST['cari'])) {
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Data Cuti</h3>
+                <h3 class="panel-title">Penilaian Prakerin & Seminar</h3>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -75,11 +81,13 @@ if (isset($_POST['cari'])) {
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Nip</th>
                                 <th>Nama</th>
-                                <th>Jabatan</th>
-                                <th>Bidang</th>
+                                <th>Instansi</th>
+                                <th>Judul</th>
                                 <th>Status</th>
+                                <th class='center'>N. Prakerin</th>
+                                <th class='center'>N. Laporan</th>
+                                <th class='center'>N. Aplikasi</th>
                                 <th class='center'>Aksi</th>
                             </tr>
                         </thead>
@@ -90,9 +98,9 @@ if (isset($_POST['cari'])) {
                             $batas = 10;
 
                             if (isset($cari)) {
-                                $jumlah_record = mysqli_query($db, "SELECT seminar.*, users.nama, users.jabatan, users.bidang FROM seminar JOIN users ON users.nip = seminar.nip WHERE jabatan LIKE '%$cari%' OR nama LIKE '%$cari%'") or die('Ada kesalahan pada query jumlah_record: ' . mysqli_error($db));
+                                $jumlah_record = mysqli_query($db, "SELECT seminar.*, users.nama, users.instansi FROM seminar JOIN users ON users.nis = seminar.nis WHERE instansi LIKE '%$cari%' OR nama LIKE '%$cari%'") or die('Ada kesalahan pada query jumlah_record: ' . mysqli_error($db));
                             } else {
-                                $jumlah_record = mysqli_query($db, "SSELECT seminar.*, users.nama, users.jabatan, users.bidang FROM seminar JOIN users ON users.nip = seminar.nip") or die('Ada kesalahan pada query jumlah_record: ' . mysqli_error($db));
+                                $jumlah_record = mysqli_query($db, "SSELECT seminar.*, users.nama, users.instansi FROM seminar JOIN users ON users.nis = seminar.nis") or die('Ada kesalahan pada query jumlah_record: ' . mysqli_error($db));
                             }
 
                             $jumlah  = mysqli_num_rows($jumlah_record);
@@ -102,31 +110,32 @@ if (isset($_POST['cari'])) {
                             /*-------------------------------------------------------------------*/
                             $no = 1;
                             if (isset($cari)) {
-                                $query = mysqli_query($db, "SELECT seminar.*, users.nama, users.jabatan, users.bidang FROM seminar JOIN users ON users.nip = seminar.nip WHERE jabatan LIKE '%$cari%' OR nama LIKE '%$cari%' ORDER BY nip LIMIT $mulai, $batas")
+                                $query = mysqli_query($db, "SELECT seminar.*, users.nama, users.instansi FROM seminar JOIN users ON users.nis = seminar.nis WHERE instansi LIKE '%$cari%' OR nama LIKE '%$cari%' ORDER BY nis LIMIT $mulai, $batas")
                                     or die('Ada kesalahan pada query seminar: ' . mysqli_error($db));
                             } else {
-                                $query = mysqli_query($db, "SELECT seminar.*, users.nama, users.jabatan,  users.bidang FROM seminar JOIN users ON users.nip = seminar.nip ORDER BY nip LIMIT $mulai, $batas") or die('Ada kesalahan pada query seminar: ' . mysqli_error($db));
+                                $query = mysqli_query($db, "SELECT seminar.*, users.nama, users.instansi FROM seminar JOIN users ON users.nis = seminar.nis ORDER BY nis LIMIT $mulai, $batas") or die('Ada kesalahan pada query seminar: ' . mysqli_error($db));
                             }
 
                             while ($data = mysqli_fetch_assoc($query)) {
 
                                 echo "  <tr>
                       <td width='20'>$no</td>
-                      <td width='100'>$data[nip]</td>
-                      <td width='75'>$data[nama]</td>
-                      <td width='150'>$data[jabatan]</td>
-                      <td width='50'>$data[bidang]</td>
-                      <td width='50'>$data[status]</td>
+                      <td width='100'>$data[nama]</td>
+                      <td width='75'>$data[instansi]</td>
+                      <td width='200'>$data[judul]</td>
+                      <td width='50'>$data[statussem]</td>
+                      <td width='25' align='center'>$data[nilaiprakerin]</td>
+                      <td width='25' align='center'>$data[nilailaporan]</td>
+                      <td width='25' align='center'>$data[nilaiaplikasi]</td>
+
                       <td width='100' class='center'>
                         <div class=''>
                         <a data-toggle='tooltip' data-placement='top' title='Detail' style='margin-right:5px' class='btn btn-success btn-sm' href='?page=seminar-detail&id=$data[idseminar]'> <i class='glyphicon glyphicon-eye-open'></i></a>
                         <a data-toggle='tooltip' data-placement='top' title='Print Detail' style='margin-right:5px' class='btn btn-warning btn-sm' href='?page=seminar-print-detail&id=$data[idseminar]' target='_blank'> <i class='glyphicon glyphicon-print'></i></a>";;
                             ?>
                                 <?php
-                                if ($_SESSION['level'] == "Admin") {
-                                    echo "<a data-toggle='tooltip' data-placement='top' title='Hapus' class='btn btn-danger btn-sm' href='?page=seminar-hapus&id=$data[idseminar]' onclick='return confirm('Anda yakin ingin menghapus $data[nama]');'> <i class='glyphicon glyphicon-trash'></i></a>&nbsp";
-
-                                    echo " <a data-toggle='tooltip' data-placement='top' title='Aktivasi' style='margin-right:5px' class='btn btn-primary btn-sm' href='?page=aktivasi-seminar&id=$data[idseminar]'> <i class='glyphicon glyphicon-ok'></i></a>";
+                                if ($_SESSION['level'] == "Pegawai") {
+                                    echo " <a data-toggle='tooltip' data-placement='top' title='Nilai' style='margin-right:5px' class='btn btn-primary btn-sm' href='?page=nilai-seminar&id=$data[idseminar]'> <i class='glyphicon glyphicon-check'></i></a>";
                                 } else if ($_SESSION['level'] == "User") {
                                 }
                                 ?>

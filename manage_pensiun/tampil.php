@@ -79,7 +79,6 @@ if (isset($_POST['cari'])) {
                                 <th>Nama</th>
                                 <th>Jabatan</th>
                                 <th>Bidang</th>
-                                <th>Status</th>
                                 <th class='center'>Aksi</th>
                             </tr>
                         </thead>
@@ -90,9 +89,9 @@ if (isset($_POST['cari'])) {
                             $batas = 10;
 
                             if (isset($cari)) {
-                                $jumlah_record = mysqli_query($db, "SELECT seminar.*, users.nama, users.jabatan, users.bidang FROM seminar JOIN users ON users.nip = seminar.nip WHERE jabatan LIKE '%$cari%' OR nama LIKE '%$cari%'") or die('Ada kesalahan pada query jumlah_record: ' . mysqli_error($db));
+                                $jumlah_record = mysqli_query($db, "SELECT seminar.*, users.nama, users.jabatan FROM seminar JOIN users ON users.nip = seminar.nip WHERE jabatan LIKE '%$cari%' OR nama LIKE '%$cari%'") or die('Ada kesalahan pada query jumlah_record: ' . mysqli_error($db));
                             } else {
-                                $jumlah_record = mysqli_query($db, "SSELECT seminar.*, users.nama, users.jabatan, users.bidang FROM seminar JOIN users ON users.nip = seminar.nip") or die('Ada kesalahan pada query jumlah_record: ' . mysqli_error($db));
+                                $jumlah_record = mysqli_query($db, "SSELECT seminar.*, users.nama, users.jabatan FROM seminar JOIN users ON users.nip = seminar.nip") or die('Ada kesalahan pada query jumlah_record: ' . mysqli_error($db));
                             }
 
                             $jumlah  = mysqli_num_rows($jumlah_record);
@@ -105,7 +104,7 @@ if (isset($_POST['cari'])) {
                                 $query = mysqli_query($db, "SELECT seminar.*, users.nama, users.jabatan, users.bidang FROM seminar JOIN users ON users.nip = seminar.nip WHERE jabatan LIKE '%$cari%' OR nama LIKE '%$cari%' ORDER BY nip LIMIT $mulai, $batas")
                                     or die('Ada kesalahan pada query seminar: ' . mysqli_error($db));
                             } else {
-                                $query = mysqli_query($db, "SELECT seminar.*, users.nama, users.jabatan,  users.bidang FROM seminar JOIN users ON users.nip = seminar.nip ORDER BY nip LIMIT $mulai, $batas") or die('Ada kesalahan pada query seminar: ' . mysqli_error($db));
+                                $query = mysqli_query($db, "SELECT seminar.*, users.nama, users.jabatan, users.bidang FROM seminar JOIN users ON users.nip = seminar.nip ORDER BY nip LIMIT $mulai, $batas") or die('Ada kesalahan pada query seminar: ' . mysqli_error($db));
                             }
 
                             while ($data = mysqli_fetch_assoc($query)) {
@@ -114,9 +113,8 @@ if (isset($_POST['cari'])) {
                       <td width='20'>$no</td>
                       <td width='100'>$data[nip]</td>
                       <td width='75'>$data[nama]</td>
-                      <td width='150'>$data[jabatan]</td>
+                      <td width='100'>$data[jabatan]</td>
                       <td width='50'>$data[bidang]</td>
-                      <td width='50'>$data[status]</td>
                       <td width='100' class='center'>
                         <div class=''>
                         <a data-toggle='tooltip' data-placement='top' title='Detail' style='margin-right:5px' class='btn btn-success btn-sm' href='?page=seminar-detail&id=$data[idseminar]'> <i class='glyphicon glyphicon-eye-open'></i></a>

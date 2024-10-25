@@ -109,7 +109,7 @@ require_once "config/database.php";
   <footer class="footer">
     <div class="container-fluid">
       <p class="text-muted pull-left">Aplikasi Anu KEMENAG</p>
-      <p class="text-muted pull-right print">copyright by | <a href="http://www.instagram.com/mhmdgra___" target="_blank"> PRISMA_GROUP</a></p>
+      <p class="text-muted pull-right print">copyright by | <a href="http://www.instagram.com" target="_blank"> PRISMA_GROUP</a></p>
     </div>
   </footer>
 

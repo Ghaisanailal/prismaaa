@@ -31,6 +31,42 @@ if (empty($_GET["page"])) {
     include "manage_cuti/tampil-sk.php";
 }
 
+ // manage pensiun
+
+  elseif ($_GET['page'] == 'pensiun-tampil') {
+    include "manage_pensiun/tampil.php";
+} elseif ($_GET['page'] == 'pensiun-detail') {
+    include "manage_pensiun/detail.php";
+} elseif ($_GET['page'] == 'pensiun-print-detail') {
+    include "manage_pensiun/print-detail.php";
+} elseif ($_GET['page'] == 'aktivasi-pensiun') {
+    include "manage_pensiun/aktivasi-pensiun.php";
+} elseif ($_GET['page'] == 'aktivasi-sem') {
+    include "manage_pensiun/aktivasi.php";
+} elseif ($_GET['page'] == 'pensiun-hapus') {
+    include "manage_pensiun/hapus.php";
+} elseif ($_GET['page'] == 'tampil-sk') {
+    include "manage_pensiun/tampil-sk.php";
+}
+
+// manage kp
+
+elseif ($_GET['page'] == 'kp-tampil') {
+    include "manage_kp/tampil.php";
+} elseif ($_GET['page'] == 'kp-detail') {
+    include "manage_kp/detail.php";
+} elseif ($_GET['page'] == 'kp-print-detail') {
+    include "manage_kp/print-detail.php";
+} elseif ($_GET['page'] == 'aktivasi-kp') {
+    include "manage_kp/aktivasi-kp.php";
+} elseif ($_GET['page'] == 'aktivasi-sem') {
+    include "manage_kp/aktivasi.php";
+} elseif ($_GET['page'] == 'kp-hapus') {
+    include "manage_kp/hapus.php";
+} elseif ($_GET['page'] == 'tampil-sk') {
+    include "manage_kp/tampil-sk.php";
+}
+
     // perjalanan
 
  elseif ($_GET['page'] == 'perjalanan-tampil') {

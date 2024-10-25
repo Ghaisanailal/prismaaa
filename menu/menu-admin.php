@@ -12,13 +12,13 @@
       </div>
 
       <div class="navbar-header">
-          <a class="navbar-brand" href="index.php">
+          <a class="navbar-brand" href="?page=pensiun-tampil">
               <i class="glyphicon glyphicon-road"></i>
               Manage Pensiun </a>
       </div>
 
       <div class="navbar-header">
-          <a class="navbar-brand" href="index.php">
+          <a class="navbar-brand" href="?page=kp-tampil">
               <i class="glyphicon glyphicon-road"></i>
               Manage Kenaikan Pangkat </a>
       </div>
